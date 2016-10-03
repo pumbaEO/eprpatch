@@ -1,0 +1,93 @@
+From 7dcc024ea3dded9a4cb7deaaa738865704c7d97e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D0=A1=D0=BE=D1=81=D0=BD=D0=B0=20=D0=95=D0=B2=D0=B3=D0=B5?=
+ =?UTF-8?q?=D0=BD=D0=B8=D0=B9?= <shenja@sosna.zp.ua>
+Date: Sun, 2 Oct 2016 18:38:27 +0300
+Subject: [PATCH] =?UTF-8?q?=D0=94=D0=BE=D0=B1=D0=B0=D0=B2=D0=B8=D0=BB=20?=
+ =?UTF-8?q?=D1=83=D1=81=D1=82=D0=B0=D0=BD=D0=BE=D0=B2=D0=BA=D1=83=20=D1=81?=
+ =?UTF-8?q?=D0=B2=D0=BE=D0=B9=D1=81=D1=82=D0=B2=D0=B0=20=D0=B0=D0=B2=D1=82?=
+ =?UTF-8?q?=D0=BE=D0=BF=D0=B5=D1=80=D0=B5=D0=BD=D0=BE=D1=81=20#1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../Встреча/Forms/ФормаДокумента/Ext/Form.xml      | 1 -
+ .../Forms/ФормаДокумента/Ext/Form/Module.bsl              | 2 ++
+ .../Forms/ФормаДокумента/Ext/Form.xml                     | 1 -
+ .../Forms/ФормаДокумента/Ext/Form/Module.bsl              | 2 ++
+ .../Forms/ФормаДокумента/Ext/Form.xml                     | 1 -
+ .../Forms/ФормаДокумента/Ext/Form/Module.bsl              | 2 ++
+ 6 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form.xml b/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form.xml
+index fe409df..efcef32 100644
+--- a/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form.xml
++++ b/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form.xml
+@@ -259,7 +259,6 @@
+ 									<DataPath>Объект.Описание</DataPath>
+ 									<TitleLocation>None</TitleLocation>
+ 									<Height>3</Height>
+-									<Wrap>false</Wrap>
+ 									<ContextMenu name="ОписаниеКонтекстноеМеню" id="77"/>
+ 									<ExtendedTooltip name="ОписаниеExtendedTooltip" id="134"/>
+ 								</InputField>
+diff --git a/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form/Module.bsl b/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form/Module.bsl
+index 006ff30..4c883dc 100644
+--- a/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form/Module.bsl
++++ b/cf/Documents/Встреча/Forms/ФормаДокумента/Ext/Form/Module.bsl
+@@ -356,3 +356,5 @@
+ // Конец СтандартныеПодсистемы.Свойства
+ 
+ #КонецОбласти
++
++//Изменил свойство "АвтоПереносСтрок" у элемента "Описание"
+\ No newline at end of file
+diff --git a/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form.xml b/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form.xml
+index bf42315..69ce616 100644
+--- a/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form.xml
++++ b/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form.xml
+@@ -106,7 +106,6 @@
+ 									<DataPath>Объект.Описание</DataPath>
+ 									<TitleLocation>None</TitleLocation>
+ 									<VerticalStretch>true</VerticalStretch>
+-									<Wrap>false</Wrap>
+ 									<ContextMenu name="ОписаниеКонтекстноеМеню" id="55"/>
+ 									<ExtendedTooltip name="ОписаниеExtendedTooltip" id="111"/>
+ 								</InputField>
+diff --git a/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form/Module.bsl b/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form/Module.bsl
+index 551bb21..65f454f 100644
+--- a/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form/Module.bsl
++++ b/cf/Documents/ЗапланированноеВзаимодействие/Forms/ФормаДокумента/Ext/Form/Module.bsl
+@@ -290,3 +290,5 @@
+ КонецПроцедуры
+ 
+ #КонецОбласти
++
++//Изменил свойство "АвтоПереносСтрок" у элемента "Описание"
+\ No newline at end of file
+diff --git a/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form.xml b/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form.xml
+index 44a5923..ce2440a 100644
+--- a/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form.xml
++++ b/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form.xml
+@@ -208,7 +208,6 @@
+ 								<InputField name="Описание" id="11">
+ 									<DataPath>Объект.Описание</DataPath>
+ 									<TitleLocation>None</TitleLocation>
+-									<Wrap>false</Wrap>
+ 									<ContextMenu name="ОписаниеКонтекстноеМеню" id="12"/>
+ 									<ExtendedTooltip name="ОписаниеExtendedTooltip" id="123"/>
+ 								</InputField>
+diff --git a/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form/Module.bsl b/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form/Module.bsl
+index 862370a..9ff12f9 100644
+--- a/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form/Module.bsl
++++ b/cf/Documents/ТелефонныйЗвонок/Forms/ФормаДокумента/Ext/Form/Module.bsl
+@@ -301,3 +301,5 @@
+ КонецПроцедуры
+ 
+ #КонецОбласти
++
++//Изменил свойство "АвтоПереносСтрок" у элемента "Описание"
+\ No newline at end of file
+-- 
+2.6.2.windows.1
+
