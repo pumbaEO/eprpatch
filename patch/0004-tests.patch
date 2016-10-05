@@ -1,0 +1,340 @@
+﻿From 4bbdc7edfb685256b4d1c3f935c6c66ac77f02b2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D0=A1=D0=BE=D1=81=D0=BD=D0=B0=20=D0=95=D0=B2=D0=B3=D0=B5?=
+ =?UTF-8?q?=D0=BD=D0=B8=D0=B9?= <shenja@sosna.zp.ua>
+Date: Sun, 2 Oct 2016 17:39:39 +0300
+Subject: [PATCH] =?UTF-8?q?=D0=94=D0=BE=D0=B1=D0=B0=D0=B2=D0=B8=D0=BB=20?=
+ =?UTF-8?q?=D1=82=D0=B5=D1=81=D1=82=D1=8B=20=D0=B4=D0=BB=D1=8F=20=D1=81?=
+ =?UTF-8?q?=D0=B2=D0=BE=D0=B9=D1=81=D1=82=D0=B2=20=D1=84=D0=BE=D1=80=D0=BC?=
+ =?UTF-8?q?=D1=8B=20#1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ features/FormsModification.feature                 |  28 ++++
+ features/step_definitions/FormsModification.xml    |  30 ++++
+ .../FormsModification/Ext/ObjectModule.bsl         |   1 +
+ .../FormsModification/Forms/Форма.xml         |  22 +++
+ .../Forms/Форма/Ext/Form.xml                  |  12 ++
+ .../Forms/Форма/Ext/Form/Module.bsl           | 176 +++++++++++++++++++++
+ 6 files changed, 269 insertions(+)
+ create mode 100644 features/FormsModification.feature
+ create mode 100644 features/step_definitions/FormsModification.xml
+ create mode 100644 features/step_definitions/FormsModification/Ext/ObjectModule.bsl
+ create mode 100644 features/step_definitions/FormsModification/Forms/Форма.xml
+ create mode 100644 features/step_definitions/FormsModification/Forms/Форма/Ext/Form.xml
+ create mode 100644 features/step_definitions/FormsModification/Forms/Форма/Ext/Form/Module.bsl
+
+diff --git a/features/FormsModification.feature b/features/FormsModification.feature
+new file mode 100644
+index 0000000..be33860
+--- /dev/null
++++ b/features/FormsModification.feature
+@@ -0,0 +1,28 @@
++# encoding: utf-8
++# language: ru
++
++@updatetest
++
++Функционал: Модификация типовых форм 
++	Как разработчик
++	Я хочу проверять правильность обновления форм и их реквизитов
++	Чтобы автоматически объединять описания форм с помощью kdiff3 или других програм. 
++
++Сценарий: Я как разработчик проверяю формы Документ.Встерча 
++	Дано я открываю форму 'Документ.Встреча.Форма.ФормаДокумента' и сохраняю в контест
++	Когда я нахожу элемент формы 'Описание' 
++	Тогда свойство элемента формы 'АвтоПереносСтрок' равно 'Да'
++	И я закрываю тестированную форму 
++
++
++Сценарий: Я как разработчик проверяю формы Документ.ЗапланированноеВзаимодействие
++	Дано я открываю форму 'Документ.ЗапланированноеВзаимодействие.Форма.ФормаДокумента' и сохраняю в контест
++	Когда я нахожу элемент формы 'Описание'
++	Тогда свойство элемента формы 'АвтоПереносСтрок' равно 'Да'
++	И я закрываю тестированную форму 
++
++Сценарий: Я как разработчик проверяю формы Документ.ТелефонныйЗвонок
++	Дано я открываю форму 'Документ.ТелефонныйЗвонок.Форма.ФормаДокумента' и сохраняю в контест
++	Когда я нахожу элемент формы 'Описание'
++	Тогда свойство элемента формы 'АвтоПереносСтрок' равно 'Да'
++	И я закрываю тестированную форму 
+\ No newline at end of file
+diff --git a/features/step_definitions/FormsModification.xml b/features/step_definitions/FormsModification.xml
+new file mode 100644
+index 0000000..12ae48f
+--- /dev/null
++++ b/features/step_definitions/FormsModification.xml
+@@ -0,0 +1,30 @@
++﻿<?xml version="1.0" encoding="UTF-8"?>
++<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2">
++	<ExternalDataProcessor uuid="79a499cc-1782-4a2f-abe7-61ea4d49fd5a">
++		<InternalInfo>
++			<xr:ContainedObject>
++				<xr:ClassId>c3831ec8-d8d5-4f93-8a22-f9bfae07327f</xr:ClassId>
++				<xr:ObjectId>8aa13ab8-188a-4f59-be4f-031aa5450c90</xr:ObjectId>
++			</xr:ContainedObject>
++			<xr:GeneratedType name="ExternalDataProcessorObject.FormsModification" category="Object">
++				<xr:TypeId>1fa267af-3d54-4f70-ac00-718486d7aafd</xr:TypeId>
++				<xr:ValueId>ed829681-4496-44fd-adeb-667f09d931c3</xr:ValueId>
++			</xr:GeneratedType>
++		</InternalInfo>
++		<Properties>
++			<Name>FormsModification</Name>
++			<Synonym>
++				<v8:item>
++					<v8:lang>ru</v8:lang>
++					<v8:content>FormsModification</v8:content>
++				</v8:item>
++			</Synonym>
++			<Comment/>
++			<DefaultForm>ExternalDataProcessor.FormsModification.Form.Форма</DefaultForm>
++			<AuxiliaryForm/>
++		</Properties>
++		<ChildObjects>
++			<Form>Форма</Form>
++		</ChildObjects>
++	</ExternalDataProcessor>
++</MetaDataObject>
+\ No newline at end of file
+diff --git a/features/step_definitions/FormsModification/Ext/ObjectModule.bsl b/features/step_definitions/FormsModification/Ext/ObjectModule.bsl
+new file mode 100644
+index 0000000..48bd361
+--- /dev/null
++++ b/features/step_definitions/FormsModification/Ext/ObjectModule.bsl
+@@ -0,0 +1 @@
++﻿  
+\ No newline at end of file
+diff --git a/features/step_definitions/FormsModification/Forms/Форма.xml b/features/step_definitions/FormsModification/Forms/Форма.xml
+new file mode 100644
+index 0000000..269fa90
+--- /dev/null
++++ b/features/step_definitions/FormsModification/Forms/Форма.xml
+@@ -0,0 +1,22 @@
++﻿<?xml version="1.0" encoding="UTF-8"?>
++<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2">
++	<Form uuid="70e297e0-e8a2-43bf-8be1-62e408f610a1">
++		<Properties>
++			<Name>Форма</Name>
++			<Synonym>
++				<v8:item>
++					<v8:lang>ru</v8:lang>
++					<v8:content>Форма</v8:content>
++				</v8:item>
++			</Synonym>
++			<Comment/>
++			<FormType>Managed</FormType>
++			<IncludeHelpInContents>false</IncludeHelpInContents>
++			<UsePurposes>
++				<v8:Value xsi:type="app:ApplicationUsePurpose">PersonalComputer</v8:Value>
++				<v8:Value xsi:type="app:ApplicationUsePurpose">MobileDevice</v8:Value>
++			</UsePurposes>
++			<ExtendedPresentation/>
++		</Properties>
++	</Form>
++</MetaDataObject>
+\ No newline at end of file
+diff --git a/features/step_definitions/FormsModification/Forms/Форма/Ext/Form.xml b/features/step_definitions/FormsModification/Forms/Форма/Ext/Form.xml
+new file mode 100644
+index 0000000..35f2632
+--- /dev/null
++++ b/features/step_definitions/FormsModification/Forms/Форма/Ext/Form.xml
+@@ -0,0 +1,12 @@
++﻿<?xml version="1.0" encoding="UTF-8"?>
++<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2">
++	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
++	<Attributes>
++		<Attribute name="Объект" id="1">
++			<Type>
++				<v8:Type>cfg:ExternalDataProcessorObject.FormsModification</v8:Type>
++			</Type>
++			<MainAttribute>true</MainAttribute>
++		</Attribute>
++	</Attributes>
++</Form>
+\ No newline at end of file
+diff --git a/features/step_definitions/FormsModification/Forms/Форма/Ext/Form/Module.bsl b/features/step_definitions/FormsModification/Forms/Форма/Ext/Form/Module.bsl
+new file mode 100644
+index 0000000..43ccaff
+--- /dev/null
++++ b/features/step_definitions/FormsModification/Forms/Форма/Ext/Form/Module.bsl
+@@ -0,0 +1,176 @@
++﻿//начало текста модуля
++
++///////////////////////////////////////////////////
++//Служебные функции и процедуры
++///////////////////////////////////////////////////
++
++&НаКлиенте
++// контекст фреймворка Vanessa-Behavior
++Перем Ванесса;
++ 
++&НаКлиенте
++// Структура, в которой хранится состояние сценария между выполнением шагов. Очищается перед выполнением каждого сценария.
++Перем Контекст Экспорт;
++ 
++&НаКлиенте
++// Структура, в которой можно хранить служебные данные между запусками сценариев. Существует, пока открыта форма Vanessa-Behavior.
++Перем КонтекстСохраняемый Экспорт;
++
++&НаКлиенте
++// Функция экспортирует список шагов, которые реализованы в данной внешней обработке.
++Функция ПолучитьСписокТестов(КонтекстФреймворкаBDD) Экспорт
++	Ванесса = КонтекстФреймворкаBDD;
++	
++	ВсеТесты = Новый Массив;
++
++	//описание параметров
++	//Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,Снипет,ИмяПроцедуры,ПредставлениеТеста,Транзакция,Параметр);
++
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"ЯОткрываюФормуИСохраняюВКонтест(Парам01,Парам02)","ЯОткрываюФормуИСохраняюВКонтест","Дано я открываю форму 'Документ.Встреча.Формы.ФормаДокумента' и сохраняю в контест 'ФормаДокумента'");
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест(Парам01,Парам02,Парам03,Парам04)","ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест","Дано я открываю форму 'Документ.ЗапланированноеВзаимодействие.Формы.ФормаДокумента' со свойством 'АвтоТест' и значением '1' и сохраняю в контест 'ФормаДокумента'");
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"ЯОткрываюФормуИСохраняюВКонтест(Парам01)","ЯОткрываюФормуИСохраняюВКонтест","Дано я открываю форму 'Документ.Встреча.Форма.ФормаДокумента' и сохраняю в контест");
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"ЯНахожуЭлементФормы(Парам01)","ЯНахожуЭлементФормы","Когда я нахожу элемент формы 'Описание'");
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"СвойствоЭлементаФормыРавно(Парам01,Парам02)","СвойствоЭлементаФормыРавно","Тогда свойство элемента формы 'АвтоПереносСтрок' равно 'Да'");
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"ЯЗакрываюТестированнуюФорму()","ЯЗакрываюТестированнуюФорму","И я закрываю тестированную форму");
++	Ванесса.ДобавитьШагВМассивТестов(ВсеТесты,"ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест(Парам01,Парам02,Парам03)","ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест","Дано я открываю форму 'Документ.ЗапланированноеВзаимодействие.Формы.ФормаДокумента' со свойством 'АвтоТест' и значением '1' и сохраняю в контест");
++
++	Возврат ВсеТесты;
++КонецФункции
++	
++&НаСервере
++// Служебная функция.
++Функция ПолучитьМакетСервер(ИмяМакета)
++	ОбъектСервер = РеквизитФормыВЗначение("Объект");
++	Возврат ОбъектСервер.ПолучитьМакет(ИмяМакета);
++КонецФункции
++	
++&НаКлиенте
++// Служебная функция для подключения библиотеки создания fixtures.
++Функция ПолучитьМакетОбработки(ИмяМакета) Экспорт
++	Возврат ПолучитьМакетСервер(ИмяМакета);
++КонецФункции
++
++
++
++///////////////////////////////////////////////////
++//Работа со сценариями
++///////////////////////////////////////////////////
++
++&НаКлиенте
++// Процедура выполняется перед началом каждого сценария
++Процедура ПередНачаломСценария() Экспорт
++	
++КонецПроцедуры
++
++&НаКлиенте
++// Процедура выполняется перед окончанием каждого сценария
++Процедура ПередОкончаниемСценария() Экспорт
++	
++КонецПроцедуры
++
++
++
++///////////////////////////////////////////////////
++//Реализация шагов
++///////////////////////////////////////////////////
++
++&НаКлиенте
++Процедура ЗакрытьФорму(ТестируемаяФорма)
++	//Если ТипЗнч(ТестируемаяФорма) <> Тип("Форма") и ТипЗнч(ТестируемаяФорма) <> Тип("УправляемаяФорма") Тогда
++	Если ТипЗнч(ТестируемаяФорма) <> Тип("УправляемаяФорма") Тогда
++		Возврат;
++	КонецЕсли; 
++	ТестируемаяФорма.Модифицированность = Ложь;
++	Если ТестируемаяФорма.Открыта() Тогда
++		ТестируемаяФорма.Модифицированность = Ложь;
++		ТестируемаяФорма.Закрыть();
++	Иначе
++		Попытка
++			ТестируемаяФорма.Закрыть();
++		Исключение
++		КонецПопытки;
++	КонецЕсли;
++	ТестируемаяФорма = "";
++
++КонецПроцедуры
++
++
++&НаКлиенте
++Процедура ТестироватьФорму(ПолноеИмяФормы, ПараметрыФормы, ИмяКонтекста) Экспорт
++//Процедура ТестироватьФорму(ПолноеИмяФормы, ПараметрыФормы, Модально = Ложь) Экспорт
++	
++	КлючВременнойФормы = "908насмь9ыв3245";
++	ТестируемаяФорма = ОткрытьФорму(ПолноеИмяФормы, ПараметрыФормы,, КлючВременнойФормы);
++
++	Если ТестируемаяФорма = Неопределено Тогда
++		ВызватьИсключение "Тестируемая форма не определена "+ПолноеИмяФормы;
++	КонецЕсли;
++	
++	//ТестируемаяФорма.Открыть(); // К сожалению здесь исключения не ловятся http://partners.v8.1c.ru/forum/thread.jsp?id=1080350#1080350
++	Если ТестируемаяФорма.Открыта() = Ложь Тогда 
++		ВызватьИсключение "ТестируемаяФорма """+ПолноеИмяФормы+""" не открылась, а должна была открыться"; 
++	КонецЕсли;
++		
++	Если ТипЗнч(ТестируемаяФорма) = Тип("УправляемаяФорма") Тогда
++		ТестируемаяФорма.ОбновитьОтображениеДанных();
++	Иначе
++			//Если ЭтоОбычнаяФорма(ТестируемаяФорма) Тогда
++		ТестируемаяФорма.Обновить();
++	КонецЕсли;
++	
++	Контекст.Вставить(ИмяКонтекста, ТестируемаяФорма);
++	
++КонецПроцедуры
++
++
++&НаКлиенте
++//Дано я открываю форму 'Документ.Встреча.Формы.ФормаДокумента' со свойством 'АвтоТест' и значением '1' и сохраняю в контест 'ФормаДокумента'
++//@ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест(Парам01,Парам02,Парам03,Парам04)
++Процедура ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест(Мета_ПолноеИмя,ИмяСвойства="",Значение = "", КонтекстИмя="ТестируемаяФорма") Экспорт
++	
++	ПараметрыФормы = Новый Структура("Ключ", Неопределено);
++	Если НЕ ПустаяСтрока(ИмяСвойства) Тогда 
++		ПараметрыФормы.Вставить(ИмяСвойства, Значение);
++	КонецЕсли;
++	
++	ТестироватьФорму(Мета_ПолноеИмя, ПараметрыФормы, КонтекстИмя);
++	Контекст.Вставить("ИмяКонтекстаТестируемойФормы", КонтекстИмя);
++
++КонецПроцедуры
++
++&НаКлиенте
++//Когда я нахожу элемент формы 'Описание'
++//@ЯНахожуЭлементФормы(Парам01)
++Процедура ЯНахожуЭлементФормы(Парам01) Экспорт
++	//Ванесса.ПосмотретьЗначение(Парам01,Истина);
++	ТестируемаяФорма = Неопределено;
++	Контекст.Свойство(Контекст["ИмяКонтекстаТестируемойФормы"], ТестируемаяФорма);
++	Контекст.Вставить("Элемент", ТестируемаяФорма.Элементы[Парам01]);
++	
++КонецПроцедуры
++
++&НаКлиенте
++//Тогда свойство элемента формы 'АвтоПереносСтрок' равно 'Истина'
++//@СвойствоЭлементаФормыРавно(Парам01,Парам02)
++Процедура СвойствоЭлементаФормыРавно(Парам01,Парам02) Экспорт
++	//Ванесса.ПосмотретьЗначение(Парам01,Истина);
++	Ванесса.ПроверитьРавенство(Строка(Контекст["Элемент"][Парам01]), Парам02);
++КонецПроцедуры
++
++//окончание текста модуля
++
++&НаКлиенте
++//Дано я открываю форму 'Документ.Встреча.Формы.ФормаДокумента' и сохраняю в контест 'ФормаДокумента'
++//@ЯОткрываюФормуИСохраняюВКонтест(Парам01,Парам02)
++Процедура ЯОткрываюФормуИСохраняюВКонтест(Мета_ПолноеИмя, КонтекстИмя="ТестируемаяФорма") Экспорт
++	ЯОткрываюФормуСоСвойствомИЗначениемИСохраняюВКонтест(Мета_ПолноеИмя, "", "", КонтекстИмя);
++КонецПроцедуры
++
++&НаКлиенте
++//И я закрываю тестированную форму
++//@ЯЗакрываюТестированнуюФорму()
++Процедура ЯЗакрываюТестированнуюФорму() Экспорт
++	ТестируемаяФорма = Неопределено;
++	Контекст.Свойство(Контекст["ИмяКонтекстаТестируемойФормы"], ТестируемаяФорма);
++    ЗакрытьФорму(ТестируемаяФорма);
++КонецПроцедуры
+-- 
+2.6.2.windows.1
+
