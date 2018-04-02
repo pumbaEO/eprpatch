@@ -15,6 +15,9 @@ addons:
 env:
   global:
   - ONECVERSION=8.3.10.2639
+  matrix:
+  - USE_NETWORK=true
+  - USE_NETWORK=false
 
 cache:
   directories:
@@ -25,16 +28,19 @@ cache:
 before_install:
   - ls
   - touch file.txt
-  - echo "ddd" >> file.txt
+  - echo "before" >> file.txt
+  - echo "before" >> file2.txt
+  - ls -al
 
 install:
   - ls
-  - touch file2.txt
-  - echo "ddd" >> file2.txt
+  - echo "install" >> file2.txt
+  - ls -al
 
 
 script:
-  - ls 
+  - ls -al
+  - echo "${USE_NETWORK}"
   - cat file2.txt
   
 notifications:
