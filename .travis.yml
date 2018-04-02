@@ -1,0 +1,41 @@
+sudo: required
+
+services:
+  - docker
+
+git:
+  depth: 5
+
+addons:
+  apt:
+    packages:
+      # 7z is used for packaging (see before_deploy)
+      - p7zip-full
+
+env:
+  global:
+  - ONECVERSION=8.3.10.2639
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    - '$HOME/docker'
+
+before_install:
+  - ls
+  - touch file.txt
+  - echo "ddd" >> file.txt
+
+install:
+  - ls
+  - touch file2.txt
+  - echo "ddd" >> file2.txt
+
+
+script:
+  - ls 
+  - cat file2.txt
+  
+notifications:
+  email: true
