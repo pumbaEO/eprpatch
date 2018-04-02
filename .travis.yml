@@ -16,8 +16,8 @@ env:
   global:
   - ONECVERSION=8.3.10.2639
   matrix:
-  - USE_NETWORK=true
-  - USE_NETWORK=false
+  - USE_NETWORK=3
+  - USE_NETWORK=60
 
 cache:
   directories:
@@ -30,6 +30,8 @@ before_install:
   - touch file.txt
   - echo "before" >> file.txt
   - echo "before" >> file2.txt
+  - echo "${USE_NETWORK}" >> file2.txt
+  - sleep $USE_NETWORK
   - ls -al
 
 install:
@@ -44,4 +46,4 @@ script:
   - cat file2.txt
   
 notifications:
-  email: true
+  email: false
