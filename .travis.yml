@@ -33,17 +33,20 @@ before_install:
   - echo "${USE_NETWORK}" >> file2.txt
   - sleep $USE_NETWORK
   - ls -al
+  - env 
 
 install:
   - ls
   - echo "install" >> file2.txt
   - ls -al
+  - env 
 
 
 script:
   - ls -al
   - echo "${USE_NETWORK}"
   - cat file2.txt
+  - env 
   
 notifications:
   email: false
