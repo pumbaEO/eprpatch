@@ -26,9 +26,8 @@ cache:
 jobs:
   include:
     - stage: compile
-    script: 
-      - mkdir ./build
-      - echo "scipt compile"
+      script: mkdir ./build
+      script: echo "bbb"
     - stage: unit tests
       script: echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
     - stage: unit tests
