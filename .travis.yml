@@ -25,24 +25,15 @@ jobs:
       script: echo "bbb"
       script: touch ./build/compile.txt
     - stage: unit tests
-      env:
-        - FEAUTURE=bla1
-        - CACHE_NAME=oneccompile
       script: 
         - echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
         - ls -al ./build
     - stage: unit tests
-      env:
-        - FEAUTURE=bla2
-        - CACHE_NAME=oneccompile
       script:
         - ls -al ./build
         - echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
         - ls -al ./build
     - stage: deploy to staging
-      env:
-        - FEAUTURE=bla3
-        - CACHE_NAME=oneccompile
       script:
         - ls -al ./build 
         - cat ./build/file2.txt
