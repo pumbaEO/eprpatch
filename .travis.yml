@@ -29,8 +29,8 @@ jobs:
       script: mkdir ./build
       script: echo "bbb"
     - stage: unit tests
-      script: echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
+      script: echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
     - stage: unit tests
-      script: echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
+      script: echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
     - stage: deploy to staging
-      script: cat file2.txt
+      script: cat ./build/file2.txt
