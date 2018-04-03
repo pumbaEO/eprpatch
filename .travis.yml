@@ -28,9 +28,22 @@ jobs:
     - stage: compile
       script: mkdir ./build
       script: echo "bbb"
+      script: touch ./build/compile.txt
     - stage: unit tests
-      script: echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
+      env:
+        - FEAUTURE=bla1
+      script: 
+        - echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
+        - ls -al ./build
     - stage: unit tests
-      script: echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
+      env:
+        - FEAUTURE=bla2
+      script:
+        - echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
+        - ls -al ./build
     - stage: deploy to staging
-      script: cat ./build/file2.txt
+      env:
+        - FEAUTURE=bla3
+      script:
+        - ls -al ./build 
+        - cat ./build/file2.txt
