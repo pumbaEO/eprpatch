@@ -15,60 +15,23 @@ addons:
 env:
   global:
   - ONECVERSION=8.3.10.2639
-  #matrix:
-  #- USE_NETWORK=3
-  #- USE_NETWORK=60
 
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
-    - '$HOME/docker'
+    - '$TRAVIS_BUILD_DIR/build'
+
 
 jobs:
   include:
-    - stage: before install
-      - echo "before" >> file.txt
-      - echo "before" >> file2.txt
-      - echo "${USE_NETWORK}" >> file2.txt
-      - echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
-      - ls -al
-      - env
-    - stage: test
-      - cat file2.txt
-      - echo ${USE_NETWORK}
-      env:
-        USE_NETWORK=3
-
-    - stage: test
-      - cat file2.txt
-      - echo ${USE_NETWORK}
-      env:
-        USE_NETWORK=4
-  
-
-# before_install:
-#   - ls
-#   - touch file.txt
-#   - echo "before" >> file.txt
-#   - echo "before" >> file2.txt
-#   - echo "${USE_NETWORK}" >> file2.txt
-#   - echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
-#   - ls -al
-#   - env 
-
-# install:
-#   - ls
-#   - echo "install" >> file2.txt
-#   - ls -al
-#   - env 
-
-
-# script:
-#   - ls -al
-#   - echo "${USE_NETWORK}"
-#   - cat file2.txt
-#   - env 
-  
-notifications:
-  email: false
+    - stage: compile
+    script: 
+      - mkdir ./build
+      - echo "scipt compile"
+    - stage: unit tests
+      script: echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
+    - stage: unit tests
+      script: echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
+    - stage: deploy to staging
+      script: cat file2.txt
