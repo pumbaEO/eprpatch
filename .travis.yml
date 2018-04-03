@@ -15,9 +15,9 @@ addons:
 env:
   global:
   - ONECVERSION=8.3.10.2639
-  matrix:
-  - USE_NETWORK=3
-  - USE_NETWORK=60
+  #matrix:
+  #- USE_NETWORK=3
+  #- USE_NETWORK=60
 
 cache:
   directories:
@@ -25,28 +25,50 @@ cache:
     - '$HOME/.sonar/cache'
     - '$HOME/docker'
 
-before_install:
-  - ls
-  - touch file.txt
-  - echo "before" >> file.txt
-  - echo "before" >> file2.txt
-  - echo "${USE_NETWORK}" >> file2.txt
-  - sleep $USE_NETWORK
-  - ls -al
-  - env 
+jobs:
+  include:
+    - stage: before install
+      - echo "before" >> file.txt
+      - echo "before" >> file2.txt
+      - echo "${USE_NETWORK}" >> file2.txt
+      - echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
+      - ls -al
+      - env
+    - stage: test
+      - cat file2.txt
+      - echo ${USE_NETWORK}
+      env:
+        USE_NETWORK=3
 
-install:
-  - ls
-  - echo "install" >> file2.txt
-  - ls -al
-  - env 
+    - stage: test
+      - cat file2.txt
+      - echo ${USE_NETWORK}
+      env:
+        USE_NETWORK=4
+  
+
+# before_install:
+#   - ls
+#   - touch file.txt
+#   - echo "before" >> file.txt
+#   - echo "before" >> file2.txt
+#   - echo "${USE_NETWORK}" >> file2.txt
+#   - echo "${TRAVIS_JOB_NUMBER}" >> file2.txt
+#   - ls -al
+#   - env 
+
+# install:
+#   - ls
+#   - echo "install" >> file2.txt
+#   - ls -al
+#   - env 
 
 
-script:
-  - ls -al
-  - echo "${USE_NETWORK}"
-  - cat file2.txt
-  - env 
+# script:
+#   - ls -al
+#   - echo "${USE_NETWORK}"
+#   - cat file2.txt
+#   - env 
   
 notifications:
   email: false
