@@ -24,19 +24,6 @@ jobs:
       script: mkdir ./build
       script: echo "bbb"
       script: touch ./build/compile.txt
-    - stage: unit tests
-      script: 
-        - echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
-        - ls -al ./build
-    - stage: unit tests
-      script:
-        - ls -al ./build
-        - echo "${TRAVIS_JOB_NUMBER}" >> ./build/file2.txt
-        - ls -al ./build
-    - stage: deploy to staging
-      script:
-        - ls -al ./build 
-        - cat ./build/file2.txt
     - stage: delpoy
       script:
         - ls -al
@@ -46,7 +33,8 @@ jobs:
         - touch del.txt
       deploy: &github
         - provider: releases
-          secure: "$GITHUB_OAUTH_TOKEN"
+          api_key:
+            secure: "$GITHUB_OAUTH_TOKEN"
           file:
             - "del.txt"
             - "./build/compile.txt"
