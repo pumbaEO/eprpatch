@@ -37,3 +37,26 @@ jobs:
       script:
         - ls -al ./build 
         - cat ./build/file2.txt
+    - stage: delpoy
+      script:
+        - ls -al
+        - echo "1"
+        - echo "2"
+        - ls -al
+        - touch del.txt
+      deploy: &github
+        - provider: releases
+          secure: "$GITHUB_OAUTH_TOKEN"
+          file:
+            - "del.txt"
+            - "./build/compile.txt"
+          file_glob: true 
+          skip_cleanup: true
+          on:
+            tags: true
+            branch: master
+        - provider: script
+          script: skipe
+          skip_cleanup: true
+
+
