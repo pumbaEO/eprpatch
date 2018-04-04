@@ -29,8 +29,9 @@ jobs:
         - ls -al
         - echo "1"
         - echo "2"
+        - echo "bbb" > ./build/compile.txt
+        - echo "bbss" > del.txt
         - ls -al
-        - touch del.txt
       deploy: &github
         - provider: releases
           api_key:
@@ -43,8 +44,5 @@ jobs:
           on:
             tags: true
             branch: master
-        - provider: script
-          script: true
-          skip_cleanup: true
 
 
