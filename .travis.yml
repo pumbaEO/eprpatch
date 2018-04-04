@@ -44,7 +44,7 @@ jobs:
             tags: true
             branch: master
         - provider: script
-          script: skipe
+          script: true
           skip_cleanup: true
 
 
